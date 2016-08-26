@@ -3,7 +3,12 @@
 
 @import "header";
 @import "main";
+@import "forms";
 @import "footer";
 @import "content";
 
-//@import "pages/front";
+@import "pages/front";
+@import "pages/projects";
+@import "pages/single-project";
+@import "pages/page";
+@import "pages/login";

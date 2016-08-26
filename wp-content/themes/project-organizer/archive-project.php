@@ -1,5 +1,6 @@
 <?php get_header(); ?>
 
+
 	<section class="main_content projects">
 		<?php if (have_posts()): while (have_posts()) : the_post(); ?>
 
@@ -31,7 +32,11 @@
 		</div>
 
 		<?php else: ?>
-
+			<article class="no-projects">
+				<p>
+					<?php _e('No project are created.', 'project_organizer'); ?> <a href="<?php echo admin_url(); ?>post-new.php?post_type=project"><?php _e('Create one?', 'project_organizer'); ?></a>
+				</p>
+			</article>
 		<?php endif; ?>
 	</section>
 

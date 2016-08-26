@@ -1,0 +1,17 @@
+.main_content.login {
+  width: 320px;
+}
+
+#login_error {
+  border-left: 4px solid #dc3232;
+  padding: 12px 24px;
+  background: #fff;
+  box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+  margin-bottom: 20px;
+  text-align: left;
+
+  p {
+    margin-bottom: 0;
+    font-size: 13px;
+  }
+}

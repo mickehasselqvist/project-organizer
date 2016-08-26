@@ -1,1 +1,38 @@
+a {
+  text-decoration: none;
+  color: #c459a1;
+  transition: color 0.2s;
 
+  &:hover {
+    color: #aa3d86;
+  }
+}
+
+.external_link {
+  position: relative;
+  padding-right: 12px;
+
+  &:after {
+    content: "\f08e";
+    font-family: FontAwesome;
+    right: 0;
+    position:absolute;
+    top:0;
+    font-size: 0.8em;
+  }
+}
+
+.content {
+  font-size: 18px;
+
+  p {
+    font-size: 18px;
+    margin: 0;
+    margin-bottom: 1em;
+    line-height: 30px;
+  }
+
+  ul, ol {
+    line-height: 30px;
+  }
+}

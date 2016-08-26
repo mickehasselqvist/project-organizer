@@ -6,7 +6,7 @@
 	$current_user_email = $current_user->user_email;
 ?>
 
-	<section class="main_content">
+	<section class="main_content front">
 
 		<h2>Welcome, <?php echo $current_user_display_name; ?></h2>
 		<div class="user_avatar">

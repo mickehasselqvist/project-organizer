@@ -1,19 +1,26 @@
 <?php get_header(); ?>
 
-	<main role="main">
-		<!-- section -->
-		<section>
+	<section class="main_content page">
 
-			<h1><?php echo sprintf( __( '%s Search Results for ', 'html5blank' ), $wp_query->found_posts ); echo get_search_query(); ?></h1>
+		<h2><?php echo sprintf( __( '%s search results for ', 'project_organizer' ), $wp_query->found_posts ); echo '"' . get_search_query() . '"'; ?></h2>
 
-			<?php get_template_part('loop'); ?>
+		<?php if (have_posts()): ?>
 
-			<?php get_template_part('pagination'); ?>
+			<ul>
 
-		</section>
-		<!-- /section -->
-	</main>
+			<?php while (have_posts()) : the_post(); ?>
 
-<?php get_sidebar(); ?>
+				<li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
+
+			<?php endwhile; ?>
+
+			</ul>
+
+		<?php else: ?>
+
+		<?php endif; ?>
+
+	</section>
+
 
 <?php get_footer(); ?>
