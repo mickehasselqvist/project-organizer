@@ -1,5 +1,4 @@
 .main_content.single-project {
-  width: 1120px;
   position: relative;
 
   article {
@@ -134,6 +133,7 @@
 
   >span {
     display: block;
+    width: 0%;
     height: 100%;
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
@@ -146,7 +146,7 @@
     overflow: hidden;
     background-color: #f0a3a3;
     background-image: linear-gradient(to bottom, #f0a3a3, #c76c95);
-    animation: expandWidth 1s ease-in-out;
+    animation: expandWidth 1s ease-in-out 0.5s forwards;
 
     >span {
       content: "";
@@ -181,9 +181,7 @@
     background-position: 50px 50px;
   }
 }
-@keyframes expandWidth {
-  0% { width: 0; }
-}
+
 
 .todo_list_container {
   padding: 20px 35px;

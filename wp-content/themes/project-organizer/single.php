@@ -44,6 +44,10 @@
 					</div>
 				</div>
 
+				<footer>
+					<?php edit_post_link(__('Edit this project'), '<p>', '</p>'); ?>
+				</footer>
+
 			</article>
 
 		<?php endwhile; ?>

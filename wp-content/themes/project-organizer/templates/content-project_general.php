@@ -28,8 +28,14 @@
     <tr>
         <th>Completion status</th>
         <td>
+            <style>
+                @keyframes expandWidth {
+                    0% { width: 0; }
+                    100% { width: <?php the_field('project_completion_status'); ?>% }
+                }
+            </style>
             <div class="meter red" title="<?php the_field('project_completion_status'); ?>%">
-                <span style="width: <?php the_field('project_completion_status'); ?>%"><span></span></span>
+                <span><span></span></span>
             </div>
         </td>
     </tr>

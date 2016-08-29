@@ -3,19 +3,25 @@ body {
   font-family: 'Open Sans', sans-serif;
   height: 100%;
   text-align: center;
+  width: 100%;
+}
 
-  &:before {
-    content: '';
-    display: inline-block;
-    height: 100%;
-    vertical-align: middle;
-    margin-right: -0.25em;
-  }
+.wrapper {
+  width: 100%;
+  max-width: 1150px;
+  height: 100%;
+  display: table;
+  margin: 0 auto;
+  padding: 0 15px;
+  padding-top: 95px;
+  padding-bottom: 15px;
+  box-sizing: border-box;
 }
 
 .main_content {
-  display: inline-block;
+  display: table-cell;
   vertical-align: middle;
-  margin-top: 60px; // To compensate for header height
-  width: 300px;
+  width: 100%;
+  max-width: 300px;
+  table-layout: fixed;
 }
