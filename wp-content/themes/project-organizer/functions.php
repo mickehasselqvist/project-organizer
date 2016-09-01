@@ -1,6 +1,7 @@
 <?php
 
 require_once(get_template_directory() . '/inc/customize.php'); // Customizer
+//require_once(get_template_directory() . '/inc/acf-data.php'); // Advanced Custom Field data
 
 /*------------------------------------*\
 	Theme Support
@@ -84,6 +85,52 @@ function projects_alter_loop( $query ) {
     $current_user = wp_get_current_user();
     $query->set( 'author', $current_user->ID );
 
+    //Filter by project type
+    $project_type = get_query_var('project_type');
+    if($project_type) {
+        $filter_project_type = array(
+            array(
+                'key'=>'project_type',
+                'value'=>$project_type,
+                'compare'=>'=',
+            )
+        );
+        $query->set( 'meta_query', $filter_project_type );
+    }
+
+}
+
+function project_archive_header() {
+?>
+    <header class="projects-filtering">
+        <?php $current_uri = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; ?>
+        <form action="<?php echo $current_uri; ?>" method="get">
+            <?php
+            $field_key = "field_57bd70414e8f6";
+            $field = get_field_object($field_key);
+
+            if( $field )
+            {
+                echo '<select name="project_type">';
+                echo '<option value="">' . __('Type of project') . '</option>';
+                foreach( $field['choices'] as $k => $v )
+                {
+                    $active = '';
+                    if($k == get_query_var('project_type')) { $active = 'selected="selected"'; }
+                    echo '<option value="' . $k . '" ' . $active . '>' . $v . '</option>';
+                }
+                echo '</select>';
+            }
+            ?>
+            <select name="order">
+                <option value="DESC" <?php if(get_query_var('order') == 'DESC') { echo 'selected="selected"'; }?>><?php _e('Newest first'); ?></option>
+                <option value="ASC" <?php if(get_query_var('order') == 'ASC') { echo 'selected="selected"'; }?>><?php _e('Oldest first'); ?></option>
+            </select>
+
+            <input type="submit" value="<?php esc_attr_e('Filter', 'project_organizer'); ?>" class="submit" />
+        </form>
+    </header>
+<?php
 }
 
 /*------------------------------------*\
@@ -215,6 +262,7 @@ function project_organizer_logout_redirect() {
 
 function add_query_vars($aVars) {
     $aVars[] = "login";
+    $aVars[] = "project_type";
     return $aVars;
 }
 

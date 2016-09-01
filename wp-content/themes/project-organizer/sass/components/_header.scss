@@ -27,7 +27,7 @@
   }
 }
 
-.show_menu {
+.header_button {
   float: right;
   font-size: 0;
   border: none;
@@ -37,8 +37,18 @@
   margin-left: 20px;
   padding: 0;
 
+  &.active {
+    color: #c459a1;
+  }
+
   .fa {
     font-size: 34px;
+  }
+}
+
+.show_search {
+  @media screen and (min-width:768px) {
+    display: none;
   }
 }
 
@@ -79,6 +89,17 @@
 }
 
 .search-form {
+
+  @media screen and (max-width:768px) {
+    position: absolute;
+    top: 60px;
+    left: -15px;
+    right: -15px;
+    background: #fff;
+    padding: 15px;
+    border: 1px solid #888;
+    display: none;
+  }
 
   .search-field {
     height: 34px;

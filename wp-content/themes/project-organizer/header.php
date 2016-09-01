@@ -24,13 +24,18 @@
 					<?php get_theme_logo(); ?>
 				</div>
 
-				<button class="show_menu">
+				<button class="header_button show_menu">
 					<i class="fa fa-cog" aria-hidden="true"></i>
 					<span><?php _e('Show menu', 'project-organizer'); ?></span>
 				</button>
 				<nav class="nav" role="navigation">
 					<?php project_organizer_main_menu(); ?>
 				</nav>
+
+				<button class="header_button show_search">
+					<i class="fa fa-search" aria-hidden="true"></i>
+					<span><?php _e('Show search form', 'project-organizer'); ?></span>
+				</button>
 
 				<?php get_search_form(); ?>
 
