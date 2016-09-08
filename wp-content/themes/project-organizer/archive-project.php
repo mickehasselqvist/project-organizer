@@ -14,8 +14,25 @@
 					<h3 class="project-title"><span><?php the_title(); ?></span></h3>
 
 					<p>
+						<?php if( have_rows('project_to_do_list') ): ?>
+							<?php $mandatory_count = 0 ?>
+							<?php $finished_mandatory_count = 0 ?>
+							<?php while ( have_rows('project_to_do_list') ) : the_row(); ?>
+								<?php $project_to_do_importance = get_sub_field('project_to_do_importance'); ?>
+								<?php if($project_to_do_importance == 'mandatory') {
+									$mandatory_count++;
+									$project_to_do_completion = get_sub_field('project_to_do_completion');
+									if($project_to_do_completion) {
+										$finished_mandatory_count++;
+									}
+								} ?>
+							<?php endwhile; ?>
+							<?php $completion_status = 100/$mandatory_count*$finished_mandatory_count . '%'; ?>
+						<?php else : ?>
+							<?php $completion_status = '100%'; ?>
+						<?php endif; ?>
 
-						<span class="project-completition"><strong>Completion:</strong> <?php the_field('project_completion_status'); ?>%</span>
+						<span class="project-completition"><strong>Completion:</strong> <?php echo $completion_status; ?></span>
 
 						<button aria-hidden="true">
 							<i class="fa fa-long-arrow-right"></i>

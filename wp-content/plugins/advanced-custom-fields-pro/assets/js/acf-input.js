@@ -11069,12 +11069,8 @@ var acf;
 		
 		initialize: function(){
 			
-			// bail early if no tinymce
-			if( typeof tinyMCEPreInit === 'undefined' || typeof tinymce === 'undefined' ) {
-				
-				return false;
-				
-			}
+			// bail early if no tinyMCEPreInit (needed by both tinymce and quicktags)
+			if( typeof tinyMCEPreInit === 'undefined' ) return;
 			
 			
 			// generate new id
@@ -11095,29 +11091,54 @@ var acf;
 			this.o.id = new_id
 			
 			
-			// vars
-			var mceInit = this.get_mceInit(),
-				qtInit = this.get_qtInit();
+			// initialize
+			this.initialize_tinymce();
+			this.initialize_quicktags();
 			
-				
-			// append settings
+		},
+		
+		initialize_tinymce: function(){
+			
+			// bail early if no tinymce
+			if( typeof tinymce === 'undefined' ) return;
+			
+			
+			// vars
+			var mceInit = this.get_mceInit();
+			
+			
+			// append
 			tinyMCEPreInit.mceInit[ mceInit.id ] = mceInit;
+			
+			
+			// bail early if not visual active
+			if( !this.$el.hasClass('tmce-active') ) return;
+			
+			
+			// initialize
+			try {
+				
+				tinymce.init( mceInit );
+				
+			} catch(e){}
+			
+		},
+		
+		initialize_quicktags: function(){
+			
+			// bail early if no quicktags
+			if( typeof quicktags === 'undefined' ) return;
+			
+			
+			// vars
+			var qtInit = this.get_qtInit();
+			
+			
+			// append
 			tinyMCEPreInit.qtInit[ qtInit.id ] = qtInit;
 			
 			
-			// initialize mceInit
-			if( this.$el.hasClass('tmce-active') ) {
-				
-				try {
-					
-					tinymce.init( mceInit );
-					
-				} catch(e){}
-				
-			}
-			
-
-			// initialize qtInit
+			// initialize
 			try {
 			
 				var qtag = quicktags( qtInit );
@@ -11434,6 +11455,10 @@ ed.on('ResizeEditor', function(e) {
 			
 			// move to footer
 			this.$div.appendTo('body');
+			
+			
+			// bail early if no tinymce
+			if( typeof tinymce === 'undefined' ) return;
 			
 			
 			// restore default activeEditor

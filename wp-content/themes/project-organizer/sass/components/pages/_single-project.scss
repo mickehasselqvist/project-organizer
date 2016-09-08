@@ -3,8 +3,7 @@
 
   article {
     header {
-      height: 75px;
-      line-height: 75px;
+
       background: #fff;
 
       &:after {
@@ -16,23 +15,39 @@
       h3 {
         float: left;
         width: 20%;
-        height: 100%;
+        height: 75px;
+        line-height: 75px;
         margin: 0;
         display: table;
         line-height: normal;
 
+        @media all and (max-width: 767px) {
+          float: none;
+          width: 100%;
+          text-align: center;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+        }
+
         span {
           display: table-cell;
           vertical-align: middle;
+          padding: 0 5px;
         }
       }
 
       ul {
         float: left;
         width: 80%;
+        height: 75px;
+        line-height: 75px;
         margin: 0;
         padding: 0;
         list-style: none;
+
+        @media all and (max-width: 767px) {
+          float: none;
+          width: 100%;
+        }
 
         &:after {
           content: " ";

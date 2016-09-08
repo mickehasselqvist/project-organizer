@@ -59,6 +59,9 @@ function project_organizer_main_menu() {
     <ul>
         <li><a href="<?php echo admin_url(); ?>post-new.php?post_type=project"><?php _e('Add new project', 'project_organizer'); ?></a></li>
         <li><a href="<?php echo get_post_type_archive_link( 'project' ); ?>"><?php _e('View all projects', 'project_organizer'); ?></a></li>
+        <?php if(current_user_can('administrator')) { ?>
+            <li><a href="<?php echo admin_url(); ?>"><?php _e('Dashboard', 'project_organizer'); ?></a></li>
+        <?php } ?>
         <li><a href="<?php echo wp_logout_url(); ?>"><?php _e('Log out', 'project_organizer'); ?></a></li>
     </ul>
     <?php
@@ -70,9 +73,6 @@ function projects_alter_loop( $query ) {
 
     if ( !$query->is_main_query() )
         return;
-
-    //if ( is_singular('project') )
-        //return;
 
     if( !isset($query->{'query'}{'post_type'}) )
         return;
@@ -122,6 +122,20 @@ function project_archive_header() {
                 echo '</select>';
             }
             ?>
+
+            <?php
+            $args = array(
+                'taxonomy'           => 'project_category',
+                'value_field'	     => 'slug',
+                'show_option_none'   => __('No category', 'project-organizer'),
+                'option_none_value'  => '',
+                'name'               => 'project_category',
+                'selected'           => get_query_var('project_category'),
+            );
+            wp_dropdown_categories( $args );
+
+            ?>
+
             <select name="order">
                 <option value="DESC" <?php if(get_query_var('order') == 'DESC') { echo 'selected="selected"'; }?>><?php _e('Newest first'); ?></option>
                 <option value="ASC" <?php if(get_query_var('order') == 'ASC') { echo 'selected="selected"'; }?>><?php _e('Oldest first'); ?></option>
@@ -168,6 +182,31 @@ function create_project_posttype()
     );
 
     register_post_type( 'project', $args );
+}
+function create_project_taxonomies()
+{
+    $labels = array(
+        'name'              => _x( 'Categories', 'taxonomy general name', 'project-organizer' ),
+        'singular_name'     => _x( 'Category', 'taxonomy singular name', 'project-organizer' ),
+        'search_items'      => __( 'Search Categories', 'project-organizer' ),
+        'all_items'         => __( 'All Categories', 'project-organizer' ),
+        'parent_item'       => __( 'Parent Category', 'project-organizer' ),
+        'parent_item_colon' => __( 'Parent Category:', 'project-organizer' ),
+        'edit_item'         => __( 'Edit Category', 'project-organizer' ),
+        'update_item'       => __( 'Update Category', 'project-organizer' ),
+        'add_new_item'      => __( 'Add New Category', 'project-organizer' ),
+        'new_item_name'     => __( 'New Category Name', 'project-organizer' ),
+        'menu_name'         => __( 'Project Categories', 'project-organizer' ),
+    );
+    $args = array(
+        'hierarchical'      => true,
+        'labels'            => $labels,
+        'show_admin_column' => true,
+        'query_var'         => true,
+        'rewrite'           => array( 'slug' => 'project-category' ),
+    );
+
+    register_taxonomy( 'project_category', 'project', $args );
 }
 
 function filter_listing_by_author_project( $wp_query_obj )
@@ -275,6 +314,7 @@ add_action('wp_enqueue_scripts', 'project_organizer_scripts');
 add_action('wp_enqueue_scripts', 'project_organizer_styles');
 add_action('after_setup_theme', 'register_project_organizer_menu');
 add_action('init', 'create_project_posttype');
+add_action('init', 'create_project_taxonomies');
 add_action('pre_get_posts', 'filter_listing_by_author_project');
 add_action('admin_menu', 'project_organizer_remove_menus');
 add_action('wp_head', 'theme_slug_render_title');
@@ -303,4 +343,4 @@ remove_action('wp_head', 'rel_canonical');
 remove_action('wp_head', 'wp_shortlink_wp_head', 10);
 
 // Remove Filters
-remove_filter('the_excerpt', 'wpautop'); // Remove <p> tags from Excerpt altogether
+remove_filter('the_excerpt', 'wpautop');
