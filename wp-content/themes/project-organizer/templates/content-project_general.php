@@ -24,9 +24,9 @@
     <tr>
         <th>Completion status</th>
         <td>
+            <?php $mandatory_count = 0 ?>
+            <?php $optional_count = 0 ?>
             <?php if( have_rows('project_to_do_list') ): ?>
-                <?php $mandatory_count = 0 ?>
-                <?php $optional_count = 0 ?>
                 <?php $finished_mandatory_count = 0 ?>
                 <?php while ( have_rows('project_to_do_list') ) : the_row(); ?>
                     <?php $project_to_do_importance = get_sub_field('project_to_do_importance'); ?>

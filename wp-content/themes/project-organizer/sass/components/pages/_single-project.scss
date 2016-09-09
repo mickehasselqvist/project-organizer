@@ -16,7 +16,6 @@
         float: left;
         width: 20%;
         height: 75px;
-        line-height: 75px;
         margin: 0;
         display: table;
         line-height: normal;
@@ -104,6 +103,10 @@
     &.general-table {
       th, td {
         width: 50%;
+      }
+
+      .optional {
+        margin-top: 10px;
       }
     }
 
@@ -262,6 +265,7 @@
     input[type="checkbox"]:checked + .toggle::after {
       opacity: 1;
     }
+
   }
 }
 

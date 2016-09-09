@@ -54,7 +54,7 @@
 		<?php else: ?>
 			<article class="no-projects">
 				<p>
-					<?php _e('No project are created.', 'project_organizer'); ?> <a href="<?php echo admin_url(); ?>post-new.php?post_type=project"><?php _e('Create one?', 'project_organizer'); ?></a>
+					<?php _e('No project has been created.', 'project_organizer'); ?> <a href="<?php echo admin_url(); ?>post-new.php?post_type=project"><?php _e('Create one?', 'project_organizer'); ?></a>
 				</p>
 			</article>
 		<?php endif; ?>
